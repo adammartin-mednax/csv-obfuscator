@@ -6,14 +6,18 @@ from .strategy import md5
 __version__ = '0.1.0'
 
 
-def process(columns_to_obfuscate):
+def load(columns_to_obfuscate):
     config = load_config()
     with open(config['output_file'], mode='w') as output_stream:
         with open(config['input_file']) as input_stream:
-            csv_writer = csv.writer(output_stream, delimiter=config['delimiter'])
-            csv_reader = csv.reader(input_stream, delimiter=config['delimiter'])
-            csv_writer.writerow(next(csv_reader))
-            obfuscate(csv_reader, csv_writer, columns_to_obfuscate, md5)
+            process(config, input_stream, output_stream, columns_to_obfuscate)
+
+
+def process(config, input_stream, output_stream, columns_to_obfuscate):
+    csv_reader = csv.reader(input_stream, delimiter=config['delimiter'])
+    csv_writer = csv.writer(output_stream, delimiter=config['delimiter'])
+    csv_writer.writerow(next(csv_reader))
+    obfuscate(csv_reader, csv_writer, columns_to_obfuscate, md5)
 
 
 def obfuscate(csv_input_stream, csv_output_stream, columns_to_obfuscate, strategy):
