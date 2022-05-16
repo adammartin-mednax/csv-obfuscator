@@ -44,7 +44,7 @@ class ConfigBuilder():
 @patch('csv_obfuscator.process')
 @patch('csv_obfuscator.load_config', return_value=ConfigBuilder().with_input_file('input').with_output_file('output').config())
 def test_load_will_open_file_to_write_to_and_read_from(mock_config, mock_process, mock_file):
-    load([1, 7, 9])
+    load()
     mock_file.assert_has_calls([call('output', mode='w'), call('input')], any_order=True)
 
 
@@ -52,8 +52,7 @@ def test_load_will_open_file_to_write_to_and_read_from(mock_config, mock_process
 @patch('csv_obfuscator.process')
 @patch('csv_obfuscator.load_config', return_value=ConfigBuilder().with_input_file('input').with_output_file('output').config())
 def test_load_will_delegate_to_process_function(mock_config, mock_process, mock_file):
-    columns_to_obfuscate = [1, 7, 9]
     expected_input_stream = open('input')
     expected_output_stream = open('output', mode='w')
-    load(columns_to_obfuscate)
-    mock_process.assert_called_once_with(mock_config.return_value, expected_input_stream, expected_output_stream, columns_to_obfuscate)
+    load()
+    mock_process.assert_called_once_with(mock_config.return_value, expected_input_stream, expected_output_stream)

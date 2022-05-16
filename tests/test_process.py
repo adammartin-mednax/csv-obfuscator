@@ -40,13 +40,11 @@ class ConfigBuilder():
 
 class FakeObfuscate():
     def __init__(self):
-        self.columns_to_obfuscate = None
-        self.strategy = None
+        self.strategies = None
 
-    def obfuscate(self, csv_reader, csv_writer, columns_to_obfuscate, strategy):
+    def obfuscate(self, csv_reader, csv_writer, strategies):
         csv_writer.writerow(next(csv_reader))
-        self.columns_to_obfuscate = columns_to_obfuscate
-        self.strategy = strategy
+        self.strategies = strategies
 
 
 @patch('csv_obfuscator.obfuscate')
@@ -56,7 +54,7 @@ def test_process_will_create_a_csv_reader(mock_reader, mock_writer, mock_obfusca
     input_stream = StringIO()
     expected_delimiter = '|'
     config = ConfigBuilder().with_delimiter(expected_delimiter).config()
-    process(config, input_stream, StringIO(), [1, 2])
+    process(config, input_stream, StringIO())
     mock_reader.assert_called_once_with(input_stream, delimiter=expected_delimiter)
 
 
@@ -67,7 +65,7 @@ def test_process_will_create_a_csv_writer(mock_reader, mock_writer, mock_obfusca
     output_stream = StringIO()
     expected_delimiter = '|'
     config = ConfigBuilder().with_delimiter(expected_delimiter).config()
-    process(config, StringIO(), output_stream, [1, 2])
+    process(config, StringIO(), output_stream)
     mock_writer.assert_called_once_with(output_stream, delimiter=expected_delimiter)
 
 
@@ -77,19 +75,20 @@ def test_process_will_write_header_line(mock_obfuscate):
     line1 = 'john, jones'
     input_stream = StringIO('\n'.join([header, line1]))
     output_stream = StringIO()
-    process(ConfigBuilder().config(), input_stream, output_stream, [1, 2])
+    process(ConfigBuilder().config(), input_stream, output_stream)
     assert output_stream.getvalue() == (header +'\r\n')
 
 
 @patch('csv_obfuscator.obfuscate')
-def test_process_will_pass_the_input_stream_to_be_obfuscated(mock_obfuscate):
+def test_process_will_delegate_to_obfuscate_and_pass_required_arguments(mock_obfuscate):
     fake = FakeObfuscate()
     mock_obfuscate.side_effect = fake.obfuscate
     header = 'garbage_in'
     line1 = 'garbage_out'
     output_stream = StringIO()
-    columns_to_obfuscate = [1, 7, 9]
-    process(ConfigBuilder().config(), StringIO('\n'.join([header, line1])), output_stream, columns_to_obfuscate)
-    assert fake.columns_to_obfuscate == columns_to_obfuscate
-    assert fake.strategy == md5
+    position = 1
+    strategy_arguments = {'strategy': 'md5'}
+    config = ConfigBuilder().with_column_to_obfuscate(str(position), strategy_arguments).config()
+    process(config, StringIO('\n'.join([header, line1])), output_stream)
+    assert type(fake.strategies[1]) == md5.MD5
     assert output_stream.getvalue() == '\r\n'.join([header, line1,''])
