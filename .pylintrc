@@ -3,4 +3,4 @@ init-hook='import sys; sys.path.append("./csv_obfuscator")'
 ignore=test
 
 [MESSAGES CONTROL]
-disable=missing-docstring, too-few-public-methods, invalid-name, unspecified-encoding, line-too-long
+disable=missing-docstring, too-few-public-methods, invalid-name, unspecified-encoding, line-too-long, R0801
