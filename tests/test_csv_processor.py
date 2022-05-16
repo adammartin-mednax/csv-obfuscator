@@ -9,7 +9,7 @@ file_stream = 'blah'
 
 
 @patch('builtins.open', new_callable=mock_open, read_data=file_stream)
-@patch('csv_obfuscator.process_csv')
+@patch('csv_obfuscator.obfuscate')
 @patch('csv.writer')
 @patch('csv.reader')
 def test_orchestrator_will_open_file_to_write_to_and_read_from(mock_reader, mock_writer, mock_processor, mock_file):
@@ -21,7 +21,7 @@ def test_orchestrator_will_open_file_to_write_to_and_read_from(mock_reader, mock
     mock_file.assert_has_calls([call(csv_output_file, mode='w'), call(csv_input_file)], any_order=True)
 
 @patch('builtins.open', new_callable=mock_open, read_data=file_stream)
-@patch('csv_obfuscator.process_csv')
+@patch('csv_obfuscator.obfuscate')
 @patch('csv.writer')
 @patch('csv.reader')
 def test_orchestrator_will_create_a_csv_writer(mock_reader, mock_writer, mock_processor, mock_file):
@@ -33,7 +33,7 @@ def test_orchestrator_will_create_a_csv_writer(mock_reader, mock_writer, mock_pr
     mock_writer.assert_called_once_with(mock_file.return_value, delimiter=delimiter)
 
 @patch('builtins.open', new_callable=mock_open, read_data=file_stream)
-@patch('csv_obfuscator.process_csv')
+@patch('csv_obfuscator.obfuscate')
 @patch('csv.writer')
 @patch('csv.reader')
 def test_orchestrator_will_create_a_csv_reader(mock_reader, mock_writer, mock_processor, mock_file):
@@ -45,7 +45,7 @@ def test_orchestrator_will_create_a_csv_reader(mock_reader, mock_writer, mock_pr
     mock_reader.assert_called_once_with(mock_file.return_value, delimiter=delimiter)
 
 @patch('builtins.open', new_callable=mock_open, read_data=file_stream)
-@patch('csv_obfuscator.process_csv')
+@patch('csv_obfuscator.obfuscate')
 @patch('csv.writer')
 @patch('csv.reader')
 def test_orchestrator_will_process_the_files(mock_reader, mock_writer, mock_processor, mock_file):
