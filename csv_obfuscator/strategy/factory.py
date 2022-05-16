@@ -3,6 +3,7 @@ from .names import FirstName
 from .names import LastName
 from .social_security import SSN
 from .phone_number import PhoneNumber
+from .float import PyFloat
 
 
 __STRATEGIES__ = {
@@ -10,7 +11,8 @@ __STRATEGIES__ = {
     'first_name': FirstName,
     'last_name': LastName,
     'social_security': SSN,
-    'phone_number': PhoneNumber
+    'phone_number': PhoneNumber,
+    'float': PyFloat
 }
 
 
