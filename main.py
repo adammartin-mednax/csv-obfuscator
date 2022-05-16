@@ -3,11 +3,9 @@ from csv_obfuscator import process
 
 
 def main():
-    input_file_name = sys.argv[1]
-    columns_to_obfuscate = list(map(int, sys.argv[2].split(",")))
-    delimiter = (sys.argv[3] if len(sys.argv) > 3 else ",")
+    columns_to_obfuscate = list(map(int, sys.argv[1].split(",")))
 
-    process(input_file_name, "output.csv", delimiter, columns_to_obfuscate)
+    process(columns_to_obfuscate)
 
 
 if __name__ == "__main__":

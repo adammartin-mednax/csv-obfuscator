@@ -1,9 +1,11 @@
 {
-  'input_file': 'examples/simple.csv',
-  'columns_to_obfuscate': {
-    '0': {'strategy': 'first_name'},
-    '1': {'strategy': 'last_name'},
-    '2': {'strategy': 'social_security'},
-    '5': {'strategy': 'float', 'max': 10000, 'min': 1000, 'decimals': 2}
+  "input_file": "examples/simple.csv",
+  "output_file": "output.csv",
+  "delimiter": ",",
+  "columns_to_obfuscate": {
+    "0": {"strategy": "first_name"},
+    "1": {"strategy": "last_name"},
+    "2": {"strategy": "social_security"},
+    "5": {"strategy": "float", "max": 10000, "min": 1000, "decimals": 2}
   }
 }

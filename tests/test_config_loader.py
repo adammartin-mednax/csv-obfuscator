@@ -1,6 +1,6 @@
 import json
 from unittest.mock import patch, mock_open, call
-from csv_obfuscator.loader import load_config
+from csv_obfuscator import load_config
 
 
 expected_config = {

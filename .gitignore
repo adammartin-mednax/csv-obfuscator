@@ -1,4 +1,6 @@
 ###### CUSTOM STUFF ######
+config.json
+output.csv
 flake-report
 unit_test_results
 security.html
