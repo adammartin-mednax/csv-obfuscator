@@ -15,19 +15,11 @@ def orchestrator(input_file_name, output_file_name, delimiter, columns_to_obfusc
 
 def obfuscate(csv_input_stream, csv_output_stream, columns_to_obfuscate, strategy):
     for row in csv_input_stream:
-        csv_output_stream.writerow(_obfuscate_row(row, columns_to_obfuscate, strategy))
+        new_row = [_new_value(value, index, columns_to_obfuscate, strategy) for index, value in enumerate(row)]
+        csv_output_stream.writerow(new_row)
 
 
-def _obfuscate_row(row, columns_to_obfuscate, strategy):
-    current_column_index = 0
-    new_row = []
-    for column in row:
-        new_row.append(_obfuscate_column(column, current_column_index, columns_to_obfuscate, strategy))
-        current_column_index += 1
-    return new_row
-
-
-def _obfuscate_column(column, current_column_index, columns_to_obfuscate, strategy):
-    if current_column_index in columns_to_obfuscate:
-        return strategy(column)
-    return column
+def _new_value(value, index, columns_to_obfuscate, strategy):
+    if index in columns_to_obfuscate:
+        return strategy(value)
+    return value
