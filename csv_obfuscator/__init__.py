@@ -22,5 +22,5 @@ def obfuscate(csv_input_stream, csv_output_stream, columns_to_obfuscate, strateg
 
 def _new_value(value, index, columns_to_obfuscate, strategy):
     if index in columns_to_obfuscate:
-        return strategy(value)
+        return strategy.obfuscate(value)
     return value
