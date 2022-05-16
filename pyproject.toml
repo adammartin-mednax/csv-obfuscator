@@ -9,7 +9,6 @@ python = "^3.9"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
-bandit = "^1.7.4"
 flake8 = "^4.0.1"
 pep8-naming = "^0.12.1"
 pycodestyle = "^2.8.0"

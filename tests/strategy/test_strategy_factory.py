@@ -1,5 +1,6 @@
 from unittest.mock import patch
 from csv_obfuscator.strategy.md5 import MD5
+from csv_obfuscator.strategy.names import FirstName
 from csv_obfuscator.strategy import factory
 
 class ConfigBuilder():
@@ -40,9 +41,11 @@ def test_factory_will_return_dict_of_strategies():
     assert type(result) == dict
 
 
-def test_factory_will_contain_configured_strategy():
-    result = factory.build(ConfigBuilder().with_column_to_obfuscate('1', {'strategy': 'md5'}).config())
+def test_factory_will_return_configured_strategies():
+    result = factory.build(ConfigBuilder().with_column_to_obfuscate('1', {'strategy': 'md5'})
+                                          .with_column_to_obfuscate('2', {'strategy': 'first_name'}).config())
     assert type(result[1]) == MD5
+    assert type(result[2]) == FirstName
 
 
 @patch('csv_obfuscator.strategy.factory.__STRATEGIES__')
