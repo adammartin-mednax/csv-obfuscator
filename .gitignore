@@ -5,6 +5,7 @@ flake-report
 unit_test_results
 security.html
 coverage_html
+**/.DS_Store
 
 ##########################
 
