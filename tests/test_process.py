@@ -1,11 +1,8 @@
 import csv
 from io import StringIO
-from unittest.mock import patch, mock_open, call
-from csv_obfuscator import load, process
+from unittest.mock import patch
+from csv_obfuscator import process
 from csv_obfuscator.strategy import md5
-
-
-file_stream = 'blah'
 
 
 class ConfigBuilder():
@@ -41,32 +38,37 @@ class ConfigBuilder():
         return config
 
 
-@patch('builtins.open', new_callable=mock_open, read_data=file_stream)
-@patch('csv_obfuscator.obfuscate')
-@patch('csv.writer')
-@patch('csv.reader')
-@patch('csv_obfuscator.load_config', return_value=ConfigBuilder().with_input_file('input').with_output_file('output').config())
-def test_process_will_open_file_to_write_to_and_read_from(mock_load_config, mock_reader, mock_writer, mock_obfuscate, mock_file):
-    load([1, 7, 9])
-    mock_file.assert_has_calls([call('output', mode='w'), call('input')], any_order=True)
+class FakeObfuscate():
+    def __init__(self):
+        self.columns_to_obfuscate = None
+        self.strategy = None
 
-@patch('builtins.open', new_callable=mock_open, read_data=file_stream)
-@patch('csv_obfuscator.obfuscate')
-@patch('csv.writer')
-@patch('csv.reader')
-@patch('csv_obfuscator.load_config', return_value=ConfigBuilder().with_delimiter('|').config())
-def test_process_will_create_a_csv_writer(mock_load_config, mock_reader, mock_writer, mock_obfuscate, mock_file):
-    load([1, 7, 9])
-    mock_writer.assert_called_once_with(mock_file.return_value, delimiter='|')
+    def obfuscate(self, csv_reader, csv_writer, columns_to_obfuscate, strategy):
+        csv_writer.writerow(next(csv_reader))
+        self.columns_to_obfuscate = columns_to_obfuscate
+        self.strategy = strategy
 
-@patch('builtins.open', new_callable=mock_open, read_data=file_stream)
+
 @patch('csv_obfuscator.obfuscate')
 @patch('csv.writer')
 @patch('csv.reader')
-@patch('csv_obfuscator.load_config', return_value=ConfigBuilder().with_delimiter(',').config())
-def test_process_will_create_a_csv_reader(mock_load_config, mock_reader, mock_writer, mock_obfuscate, mock_file):
-    load([1, 7, 9])
-    mock_reader.assert_called_once_with(mock_file.return_value, delimiter=',')
+def test_process_will_create_a_csv_reader(mock_reader, mock_writer, mock_obfuscate):
+    input_stream = StringIO()
+    expected_delimiter = '|'
+    config = ConfigBuilder().with_delimiter(expected_delimiter).config()
+    process(config, input_stream, StringIO(), [1, 2])
+    mock_reader.assert_called_once_with(input_stream, delimiter=expected_delimiter)
+
+
+@patch('csv_obfuscator.obfuscate')
+@patch('csv.writer')
+@patch('csv.reader')
+def test_process_will_create_a_csv_writer(mock_reader, mock_writer, mock_obfuscate):
+    output_stream = StringIO()
+    expected_delimiter = '|'
+    config = ConfigBuilder().with_delimiter(expected_delimiter).config()
+    process(config, StringIO(), output_stream, [1, 2])
+    mock_writer.assert_called_once_with(output_stream, delimiter=expected_delimiter)
 
 
 @patch('csv_obfuscator.obfuscate')
@@ -77,19 +79,6 @@ def test_process_will_write_header_line(mock_obfuscate):
     output_stream = StringIO()
     process(ConfigBuilder().config(), input_stream, output_stream, [1, 2])
     assert output_stream.getvalue() == (header +'\r\n')
-
-
-class FakeObfuscate():
-    def __init__(self):
-        self.columns_to_obfuscate = None
-        self.strategy = None
-
-    def obfuscate(self, reader, writer, columns_to_obfuscate, strategy):
-        print('******* IN OBSFUCATE ********')
-        writer.writerow(next(reader))
-        self.columns_to_obfuscate = columns_to_obfuscate
-        self.strategy = strategy
-
 
 
 @patch('csv_obfuscator.obfuscate')
