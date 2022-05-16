@@ -10,6 +10,7 @@ def process(input_file_name, output_file_name, delimiter, columns_to_obfuscate):
         with open(input_file_name) as input_stream:
             csv_writer = csv.writer(output_stream, delimiter=delimiter)
             csv_reader = csv.reader(input_stream, delimiter=delimiter)
+            csv_writer.writerow(next(csv_reader))
             obfuscate(csv_reader, csv_writer, columns_to_obfuscate, md5_strategy)
 
 

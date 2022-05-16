@@ -47,3 +47,23 @@ def test_process_will_pass_the_data_to_the_strategy_to_be_obfuscated(mock_reader
                                            mock_writer.return_value,
                                            columns_to_obfuscate,
                                            md5_strategy)
+
+
+@patch('builtins.open', new_callable=mock_open, read_data=file_stream)
+@patch('csv_obfuscator.obfuscate')
+@patch('csv.writer')
+@patch('csv.reader')
+@patch('csv_obfuscator.next') # this is really a builtin function but this mocks it at an easier point
+def test_process_will_skip_header_line(mock_next, mock_reader, mock_writer, mock_obfuscate, mock_file):
+    process('input', 'output', ',', [1, 7, 9])
+    mock_next.assert_called_once_with(mock_reader.return_value)
+
+
+@patch('builtins.open', new_callable=mock_open, read_data=file_stream)
+@patch('csv_obfuscator.obfuscate')
+@patch('csv.writer')
+@patch('csv.reader')
+@patch('csv_obfuscator.next') # this is really a builtin function but this mocks it at an easier point
+def test_process_will_write_header_line(mock_next, mock_reader, mock_writer, mock_obfuscate, mock_file):
+    process('input', 'output', ',', [1, 7, 9])
+    mock_writer.return_value.writerow.assert_called_once_with(mock_next.return_value)
