@@ -24,8 +24,8 @@ class ConfigBuilder():
         self._delimiter = delimiter
         return self
 
-    def with_column_to_obfuscate(self, column_configuration):
-        self._columns_to_obfuscate.add(column_configuration)
+    def with_column_to_obfuscate(self, column, strategy):
+        self._columns_to_obfuscate[column] = strategy
         return self
 
     def config(self):
