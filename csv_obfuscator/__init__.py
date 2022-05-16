@@ -1,3 +1,7 @@
+import csv
+from .strategy import md5_strategy
+
+
 __version__ = '0.1.0'
 
 
@@ -11,3 +15,11 @@ def process_csv(csv_input_stream, csv_output_stream, colums_to_obfuscate, strate
             current_column_index += 1
             new_row.append(column)
         csv_output_stream.writerow(new_row)
+
+
+def orchestrator(csv_input_file, csv_output_file, delimiter, columns_to_obfuscate):
+    with open(csv_output_file, mode='w') as output:
+        with open(csv_input_file) as csv_input:
+            csv_output = csv.writer(output, delimiter=delimiter)
+            csv_reader = csv.reader(csv_input, delimiter=delimiter)
+            process_csv(csv_reader, csv_output, columns_to_obfuscate, md5_strategy)
