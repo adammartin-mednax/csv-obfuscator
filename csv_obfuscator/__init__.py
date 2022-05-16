@@ -1,5 +1,5 @@
 import csv
-from .strategy import md5_strategy
+from .strategy import md5
 
 
 __version__ = '0.1.0'
@@ -11,7 +11,7 @@ def process(input_file_name, output_file_name, delimiter, columns_to_obfuscate):
             csv_writer = csv.writer(output_stream, delimiter=delimiter)
             csv_reader = csv.reader(input_stream, delimiter=delimiter)
             csv_writer.writerow(next(csv_reader))
-            obfuscate(csv_reader, csv_writer, columns_to_obfuscate, md5_strategy)
+            obfuscate(csv_reader, csv_writer, columns_to_obfuscate, md5)
 
 
 def obfuscate(csv_input_stream, csv_output_stream, columns_to_obfuscate, strategy):

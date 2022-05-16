@@ -2,7 +2,7 @@ import csv
 from io import StringIO
 from unittest.mock import patch, mock_open, call
 from csv_obfuscator import process
-from csv_obfuscator.strategy import md5_strategy
+from csv_obfuscator.strategy import md5
 
 
 file_stream = 'blah'
@@ -46,7 +46,7 @@ def test_process_will_pass_the_data_to_the_strategy_to_be_obfuscated(mock_reader
     mock_obfuscate.assert_called_once_with(mock_reader.return_value,
                                            mock_writer.return_value,
                                            columns_to_obfuscate,
-                                           md5_strategy)
+                                           md5)
 
 
 @patch('builtins.open', new_callable=mock_open, read_data=file_stream)

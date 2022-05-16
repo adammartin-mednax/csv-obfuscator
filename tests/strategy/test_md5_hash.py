@@ -1,5 +1,5 @@
 import re
-from csv_obfuscator.strategy.md5_strategy import obfuscate
+from csv_obfuscator.strategy.md5 import obfuscate
 
 def test_will_hash_imput():
     value = 'example value'
