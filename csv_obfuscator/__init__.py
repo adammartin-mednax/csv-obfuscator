@@ -5,7 +5,7 @@ from .strategy import md5_strategy
 __version__ = '0.1.0'
 
 
-def orchestrator(input_file_name, output_file_name, delimiter, columns_to_obfuscate):
+def process(input_file_name, output_file_name, delimiter, columns_to_obfuscate):
     with open(output_file_name, mode='w') as output_stream:
         with open(input_file_name) as input_stream:
             csv_writer = csv.writer(output_stream, delimiter=delimiter)
