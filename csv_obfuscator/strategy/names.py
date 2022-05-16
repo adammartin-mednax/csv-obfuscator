@@ -143,3 +143,12 @@ class FirstName:
     # pylint: disable=unused-argument, no-self-use
     def obfuscate(self, value):
         return random.choice(__FIRST_NAMES__)
+
+
+class LastName:
+    def __init__(self, arguments):
+        self._strategy_type = arguments['strategy']
+
+    # pylint: disable=unused-argument, no-self-use
+    def obfuscate(self, value):
+        return random.choice(__LAST_NAMES__)

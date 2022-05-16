@@ -1,10 +1,12 @@
 from .md5 import MD5
 from .names import FirstName
+from .names import LastName
 
 
 __STRATEGIES__ = {
     'md5': MD5,
-    'first_name': FirstName
+    'first_name': FirstName,
+    'last_name': LastName
 }
 
 
