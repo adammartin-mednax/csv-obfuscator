@@ -1,3 +1,5 @@
+clean:
+	rm -rf build dist obfuscate.spec .pytest_cache **/__pycache__ coverage.xml .coverage coverage_html unit_test_results
 initialize:
 	poetry install
 analyze: initialize
@@ -10,7 +12,5 @@ unit-test: analyze
 	poetry run coverage xml
 	poetry run coverage html -d coverage_html
 	poetry run coverage report --fail-under 90 --skip-covered
-build: unit-test
+build: clean unit-test
 	poetry run pyinstaller -w -F --clean "./obfuscate.py"
-clean:
-	rm -rf build dist obfuscate.spec .pytest_cache **/__pycache__ coverage.xml .coverage coverage_html unit_test_results
