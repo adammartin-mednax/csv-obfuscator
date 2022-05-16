@@ -13,6 +13,11 @@ def load():
             process(config, input_stream, output_stream, )
 
 
+def load_config():
+    with open('config.json', 'r') as config_file:
+        return json.load(config_file)
+
+
 def process(config, input_stream, output_stream):
     csv_reader = csv.reader(input_stream, delimiter=config['delimiter'])
     csv_writer = csv.writer(output_stream, delimiter=config['delimiter'])
@@ -24,11 +29,6 @@ def obfuscate(csv_input_stream, csv_output_stream, strategies):
     for row in csv_input_stream:
         new_row = [_new_value(value, index, strategies) for index, value in enumerate(row)]
         csv_output_stream.writerow(new_row)
-
-
-def load_config():
-    with open('config.json', 'r') as config_file:
-        return json.load(config_file)
 
 
 def _new_value(value, index, strategies):
