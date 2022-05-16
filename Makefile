@@ -10,3 +10,7 @@ unit-test: analyze
 	poetry run coverage report --fail-under 90 --skip-covered
 quick-test:
 	poetry run pytest
+build: unit-test
+	poetry run pyinstaller -w -F --clean "./obfuscate.py"
+clean:
+	rm -rf build dist

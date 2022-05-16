@@ -5,8 +5,9 @@ description = ""
 authors = ["ajmartin <adam_martin@pediatrix.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.11"
 Faker = "^13.11.1"
+text-unidecode = "^1.3"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
@@ -19,6 +20,7 @@ pytest = "^7.1.2"
 pytest-mock = "^3.7.0"
 pytest-cov = "^3.0.0"
 flake8-html = "^0.4.2"
+pyinstaller = "^5.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
