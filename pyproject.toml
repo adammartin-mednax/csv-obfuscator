@@ -6,6 +6,7 @@ authors = ["ajmartin <adam_martin@pediatrix.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+Faker = "^13.11.1"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
