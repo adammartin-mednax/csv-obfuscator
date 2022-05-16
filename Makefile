@@ -14,12 +14,15 @@ unit-test: analyze
 	poetry run coverage report --fail-under 90 --skip-covered
 build-mac: clean unit-test
 	poetry run pyinstaller -w -F --clean "./obfuscate.py"
+	cp config_example.json dist/config_example.json
 	ditto -c -k --sequesterRsrc dist/ dist/csv_obfuscator_mac.zip
 	zip -d dist/csv_obfuscator_mac.zip csv_obfuscator_mac.zip
 	rm -rf dist/obfuscate.app
 	rm -rf dist/obfuscate
+	rm dist/config_example.json
 build-win: clean unit-test
 	mkdir csv_obfuscator_win
+	cp config_example.json csv_obfuscator_win/config_example.json
 	cp -R ./winpython ./csv_obfuscator_win/winpython
 	cp -R ./csv_obfuscator ./csv_obfuscator_win/csv_obfuscator
 	cp obfuscate.py ./csv_obfuscator_win/obfuscate.py
@@ -27,4 +30,5 @@ build-win: clean unit-test
 	zip -r "./dist/csv_obfuscator_win.zip" "./csv_obfuscator_win"
 	rm -rf csv_obfuscator_win
 build: build-mac build-win
-	echo "Build Complete"
+	$(info Build Complete)
+all: build
