@@ -4,6 +4,7 @@ from csv_obfuscator.strategy.names import FirstName, LastName
 from csv_obfuscator.strategy.social_security import SSN
 from csv_obfuscator.strategy.phone_number import PhoneNumber
 from csv_obfuscator.strategy.float import PyFloat
+from csv_obfuscator.strategy.email import EMail
 from csv_obfuscator.strategy import factory
 
 
@@ -52,6 +53,7 @@ def test_factory_will_return_configured_strategies():
                                           .with_column_to_obfuscate('4', {'strategy': 'social_security'})
                                           .with_column_to_obfuscate('5', {'strategy': 'phone_number'})
                                           .with_column_to_obfuscate('6', {'strategy': 'float', 'min': 1, 'max': 10, 'decimals': 2})
+                                          .with_column_to_obfuscate('7', {'strategy': 'email'})
                                           .config())
     assert type(result[1]) == MD5
     assert type(result[2]) == FirstName
@@ -59,6 +61,7 @@ def test_factory_will_return_configured_strategies():
     assert type(result[4]) == SSN
     assert type(result[5]) == PhoneNumber
     assert type(result[6]) == PyFloat
+    assert type(result[7]) == EMail
 
 
 @patch('csv_obfuscator.strategy.factory.__STRATEGIES__')

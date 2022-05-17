@@ -4,6 +4,7 @@ from .names import LastName
 from .social_security import SSN
 from .phone_number import PhoneNumber
 from .float import PyFloat
+from .email import EMail
 
 
 __CONFIGURATION_BASE_MESSAGE__ = """CSV-OBFUSCATOR and CONFIG.JSON
@@ -66,7 +67,8 @@ __STRATEGIES__ = {
     'last_name': LastName,
     'social_security': SSN,
     'phone_number': PhoneNumber,
-    'float': PyFloat
+    'float': PyFloat,
+    'email': EMail
 }
 
 
