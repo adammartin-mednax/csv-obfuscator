@@ -1,6 +1,18 @@
 from csv_obfuscator.strategy.float import PyFloat
 
 
+EXPECTED_CONFIGURATION = """    - float: This strategy is intended to obfuscate last columns like
+      money. In the strategy section of the configuration you need the following:
+          - strategy: float
+          - max: An integer representing the maximum random value
+          - min: An integer representing the minimum random value
+          - decimals: The maximum number of decimals to include. Values will
+            print as numbers so they will render as 1000.1 not 1000.10.
+      Example Config:
+          {\"strategy\": \"float\", \"max\": 10000, \"min\": 1000, \"decimals\": 2}
+"""
+
+
 def isfloat(num):
     try:
         float(num)
@@ -33,3 +45,8 @@ def test_will_return_a_float_with_right_number_of_decimals():
     strategy = PyFloat({'strategy': 'float', "max": 10000, "min": 1, "decimals": decimals})
     for i in range(1000):
         assert len(str(strategy.obfuscate('Any_Float')).split('.')[1]) <= decimals
+
+
+def test_will_explain_float_configuration():
+    strategy = PyFloat({'strategy': 'float', "max": 10000, "min": 1, "decimals": 2})
+    assert strategy.configuration() == EXPECTED_CONFIGURATION

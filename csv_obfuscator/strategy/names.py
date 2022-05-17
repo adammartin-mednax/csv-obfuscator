@@ -136,6 +136,18 @@ __LAST_NAMES__ = [
 ]
 
 
+__FIRST_NAME_CONFIGURATION__ = """    - first_name: This strategy is intended to obfuscate first name columns.
+      In the strategy section of the configuration you only need the following:
+          {\"strategy\": \"first_name\"}
+"""
+
+
+__LAST_NAME_CONFIGURATION__ = """    - last_name: This strategy is intended to obfuscate last name columns.
+      In the strategy section of the configuration you only need the following:
+          {\"strategy\": \"last_name\"}
+"""
+
+
 class FirstName:
     def __init__(self, arguments):
         self._strategy_type = arguments['strategy']
@@ -143,6 +155,10 @@ class FirstName:
     # pylint: disable=unused-argument, no-self-use
     def obfuscate(self, value):
         return random.choice(__FIRST_NAMES__)
+
+    # pylint: disable=no-self-use
+    def configuration(self):
+        return __FIRST_NAME_CONFIGURATION__
 
 
 class LastName:
@@ -152,3 +168,7 @@ class LastName:
     # pylint: disable=unused-argument, no-self-use
     def obfuscate(self, value):
         return random.choice(__LAST_NAMES__)
+
+    # pylint: disable=no-self-use
+    def configuration(self):
+        return __LAST_NAME_CONFIGURATION__
