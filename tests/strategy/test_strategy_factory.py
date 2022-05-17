@@ -6,6 +6,7 @@ from csv_obfuscator.strategy.phone_number import PhoneNumber
 from csv_obfuscator.strategy.float import PyFloat
 from csv_obfuscator.strategy import factory
 
+
 class ConfigBuilder():
     def __init__(self):
         self._input_file = 'default_input_file'
@@ -65,3 +66,10 @@ def test_factory_will_pass_arguments_to_strategy_constructor(mock_strategy):
     strategy_arguments = {'strategy': 'md5'}
     result = factory.build(ConfigBuilder().with_column_to_obfuscate('1', strategy_arguments).config())
     mock_strategy.__getitem__().assert_called_once_with(strategy_arguments)
+
+
+def test_factry_will_print_configuration_message():
+    composed_message = factory.__CONFIGURATION_BASE_MESSAGE__
+    for strategy in factory.__STRATEGIES__.values():
+        composed_message += strategy.configuration()
+    assert composed_message == factory.configuration()
