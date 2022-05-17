@@ -45,7 +45,7 @@ class ConfigBuilder():
 @patch('csv_obfuscator.load_config', return_value=ConfigBuilder().with_input_file('input').with_output_file('output').config())
 def test_load_will_open_file_to_write_to_and_read_from(mock_config, mock_process, mock_file):
     load()
-    mock_file.assert_has_calls([call('output', mode='w'), call('input')], any_order=True)
+    mock_file.assert_has_calls([call('output', mode='w', newline=''), call('input')], any_order=True)
 
 
 @patch('builtins.open', new_callable=mock_open, read_data=file_stream)

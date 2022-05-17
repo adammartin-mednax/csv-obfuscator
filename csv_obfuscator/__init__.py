@@ -8,7 +8,7 @@ __version__ = '0.1.0'
 
 def load():
     config = load_config()
-    with open(config['output_file'], mode='w') as output_stream:
+    with open(config['output_file'], mode='w', newline='') as output_stream:
         with open(config['input_file']) as input_stream:
             process(config, input_stream, output_stream, )
 
