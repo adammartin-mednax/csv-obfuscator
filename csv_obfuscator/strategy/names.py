@@ -156,8 +156,8 @@ class FirstName:
     def obfuscate(self, value):
         return random.choice(__FIRST_NAMES__)
 
-    # pylint: disable=no-self-use
-    def configuration(self):
+    @classmethod
+    def configuration(cls):
         return __FIRST_NAME_CONFIGURATION__
 
 
@@ -169,6 +169,6 @@ class LastName:
     def obfuscate(self, value):
         return random.choice(__LAST_NAMES__)
 
-    # pylint: disable=no-self-use
-    def configuration(self):
+    @classmethod
+    def configuration(cls):
         return __LAST_NAME_CONFIGURATION__

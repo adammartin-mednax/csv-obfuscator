@@ -22,5 +22,4 @@ def test_will_not_always_return_same_elven_name():
 
 
 def test_will_explain_first_name_configuration():
-    strategy = FirstName({'strategy': 'first_name'})
-    assert strategy.configuration() == EXPECTED_CONFIGURATION
+    assert FirstName.configuration() == EXPECTED_CONFIGURATION
