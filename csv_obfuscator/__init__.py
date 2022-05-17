@@ -1,5 +1,6 @@
 import csv
 import json
+from json.decoder import JSONDecodeError
 from .strategy import factory
 
 
@@ -7,10 +8,13 @@ __version__ = '0.1.0'
 
 
 def load():
-    config = load_config()
-    with open(config['output_file'], mode='w', newline='') as output_stream:
-        with open(config['input_file']) as input_stream:
-            process(config, input_stream, output_stream, )
+    try:
+        config = load_config()
+        with open(config['output_file'], mode='w', newline='') as output_stream:
+            with open(config['input_file']) as input_stream:
+                process(config, input_stream, output_stream, )
+    except (FileNotFoundError, JSONDecodeError, KeyError):
+        print(factory.configuration())
 
 
 def load_config():

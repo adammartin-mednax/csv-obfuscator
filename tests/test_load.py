@@ -1,7 +1,9 @@
 import csv
+from json.decoder import JSONDecodeError
 from io import StringIO
 from unittest.mock import patch, mock_open, call
 from csv_obfuscator import load
+from csv_obfuscator.strategy import factory
 
 
 file_stream = 'blah'
@@ -56,3 +58,24 @@ def test_load_will_delegate_to_process_function(mock_config, mock_process, mock_
     expected_output_stream = open('output', mode='w')
     load()
     mock_process.assert_called_once_with(mock_config.return_value, expected_input_stream, expected_output_stream)
+
+
+@patch('builtins.print')
+@patch('builtins.open', side_effect=FileNotFoundError)
+def test_load_will_print_configuration_message_for_file_not_found_error(mock_open, mock_print):
+    load()
+    mock_print.assert_called_once_with(factory.configuration())
+
+
+@patch('builtins.print')
+@patch('builtins.open', side_effect=JSONDecodeError(msg='blah', doc='{}', pos=0))
+def test_load_will_print_configuration_message_for_json_decode_error(mock_open, mock_print):
+    load()
+    mock_print.assert_called_once_with(factory.configuration())
+
+
+@patch('builtins.print')
+@patch('builtins.open', side_effect=KeyError)
+def test_load_will_print_configuration_message_for_key_error_when_strategy_does_not_exist(mock_open, mock_print):
+    load()
+    mock_print.assert_called_once_with(factory.configuration())
