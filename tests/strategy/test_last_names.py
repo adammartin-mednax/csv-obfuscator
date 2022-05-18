@@ -14,7 +14,7 @@ def test_will_return_random_elven_name():
 
 
 def test_will_not_always_return_same_elven_name():
-    strategy = LastName({'strategy': 'larst_name'})
+    strategy = LastName({'strategy': 'last_name'})
     results = {}
     for index in range(100):
         results[strategy.obfuscate('some_name')] = index

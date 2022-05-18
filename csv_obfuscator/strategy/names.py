@@ -148,6 +148,12 @@ __LAST_NAME_CONFIGURATION__ = """    - last_name: This strategy is intended to o
 """
 
 
+__FULL_NAME_CONFIGURATION__ = """    - full_name: This strategy is intended to obfuscate full name columns.
+      In the strategy section of the configuration you only need the following:
+          {\"strategy\": \"full_name\"}
+"""
+
+
 class FirstName:
     def __init__(self, arguments):
         self._strategy_type = arguments['strategy']
@@ -172,3 +178,18 @@ class LastName:
     @classmethod
     def configuration(cls):
         return __LAST_NAME_CONFIGURATION__
+
+
+class FullName:
+    def __init__(self, arguments):
+        self._strategy_type = arguments['strategy']
+        self._first_name = FirstName(arguments)
+        self._last_name = LastName(arguments)
+
+    # pylint: disable=unused-argument, no-self-use
+    def obfuscate(self, value):
+        return f'{self._first_name.obfuscate(value)} {self._last_name.obfuscate(value)}'
+
+    @classmethod
+    def configuration(cls):
+        return __FULL_NAME_CONFIGURATION__
