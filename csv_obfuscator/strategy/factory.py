@@ -4,6 +4,7 @@ from .names import LastName
 from .social_security import SSN
 from .phone_number import PhoneNumber
 from .float import PyFloat
+from .integer import Integer
 from .email import EMail
 
 
@@ -67,6 +68,7 @@ __STRATEGIES__ = {
     'last_name': LastName,
     'social_security': SSN,
     'phone_number': PhoneNumber,
+    'integer': Integer,
     'float': PyFloat,
     'email': EMail
 }
