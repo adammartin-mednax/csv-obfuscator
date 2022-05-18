@@ -5,6 +5,7 @@ from .social_security import SSN
 from .phone_number import PhoneNumber
 from .float import PyFloat
 from .integer import Integer
+from .percentage import Percentage
 from .email import EMail
 
 
@@ -70,6 +71,7 @@ __STRATEGIES__ = {
     'phone_number': PhoneNumber,
     'integer': Integer,
     'float': PyFloat,
+    'percentage': Percentage,
     'email': EMail
 }
 
