@@ -28,6 +28,8 @@ if %ERRORLEVEL% NEQ 0 (
    set "PATH=%WINPYDIR%\Lib\site-packages\PyQt5;%WINPYDIR%\Lib\site-packages\PySide2;%WINPYDIR%\;%WINPYDIR%\DLLs;%WINPYDIR%\Scripts;%WINPYDIR%\..\t;%WINPYDIR%\..\t\Julia\bin;%WINPYDIR%\..\n;%PATH%;"
    cd .
 )
+set PYTHONPATH=%WINPYDIR%\lib
+
 
 rem force default pyqt5 kit for Spyder if PyQt5 module is there
 if exist "%WINPYDIR%\Lib\site-packages\PyQt5\__init__.py" set QT_API=pyqt5
@@ -126,5 +128,3 @@ if not exist "%winpython_ini%" (
     echo #JUPYTERLAB_WORKSPACES_DIR = %%HOME%%\.jupyter\lab\workspaces
     echo #WINPYWORKDIR = %%HOMEDRIVE%%%%HOMEPATH%%\Documents\WinPython%%WINPYVER%%\Notebooks
 )>> "%winpython_ini%"
-
-set PYTHONPATH=%WINPYDIR%\lib
