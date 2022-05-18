@@ -27,7 +27,7 @@ echo ";%PATH%;" | %FINDDIR%\find.exe /C /I ";%WINPYDIR%\;" >nul
 if %ERRORLEVEL% NEQ 0 (
    set "PATH=%WINPYDIR%\Lib\site-packages\PyQt5;%WINPYDIR%\Lib\site-packages\PySide2;%WINPYDIR%\;%WINPYDIR%\DLLs;%WINPYDIR%\Scripts;%WINPYDIR%\..\t;%WINPYDIR%\..\t\Julia\bin;%WINPYDIR%\..\n;%PATH%;"
    cd .
-)         
+)
 
 rem force default pyqt5 kit for Spyder if PyQt5 module is there
 if exist "%WINPYDIR%\Lib\site-packages\PyQt5\__init__.py" set QT_API=pyqt5
@@ -110,9 +110,9 @@ set tmp_pyz="%HOME%\.pyzo\config.ssdf"
 rem ******************
 rem WinPython.ini part (removed from nsis)
 rem ******************
-if not exist "%WINPYDIRBASE%\settings" mkdir "%WINPYDIRBASE%\settings" 
-if not exist "%WINPYDIRBASE%\settings\AppData" mkdir "%WINPYDIRBASE%\settings\AppData" 
-if not exist "%WINPYDIRBASE%\settings\AppData\Roaming" mkdir "%WINPYDIRBASE%\settings\AppData\Roaming" 
+if not exist "%WINPYDIRBASE%\settings" mkdir "%WINPYDIRBASE%\settings"
+if not exist "%WINPYDIRBASE%\settings\AppData" mkdir "%WINPYDIRBASE%\settings\AppData"
+if not exist "%WINPYDIRBASE%\settings\AppData\Roaming" mkdir "%WINPYDIRBASE%\settings\AppData\Roaming"
 set winpython_ini=%WINPYDIRBASE%\settings\winpython.ini
 if not exist "%winpython_ini%" (
     echo [debug]
@@ -127,3 +127,4 @@ if not exist "%winpython_ini%" (
     echo #WINPYWORKDIR = %%HOMEDRIVE%%%%HOMEPATH%%\Documents\WinPython%%WINPYVER%%\Notebooks
 )>> "%winpython_ini%"
 
+set PYTHONPATH=%WINPYDIR%\lib
