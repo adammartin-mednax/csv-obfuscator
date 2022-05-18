@@ -2,7 +2,7 @@ import time
 from faker import Faker
 
 
-__INTEGER_CONFIGURATION__ = """    - float: This strategy is intended to obfuscate columns like
+__INTEGER_CONFIGURATION__ = """    - integer: This strategy is intended to obfuscate columns like
       year or day or any other integer. In the strategy section of the configuration you need the following:
           - strategy: integer
           - max: An integer representing the maximum random value
