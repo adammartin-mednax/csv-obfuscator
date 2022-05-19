@@ -25,7 +25,7 @@ class Percentage:
 
     def obfuscate(self, value):
         Faker.seed(value + str(time.time_ns()))
-        if self._decimals==0:
+        if self._decimals == 0:
             return str(self._fake.pyint(max_value=self._max_value, min_value=self._min_value))
         return str(self._fake.pyfloat(max_value=self._max_value, min_value=self._min_value, right_digits=self._decimals))
 

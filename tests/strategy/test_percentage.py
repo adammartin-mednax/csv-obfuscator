@@ -52,7 +52,6 @@ def test_will_return_a_percentage_with_can_handle_0_decimals():
     strategy = Percentage({'strategy': 'percentage', "max": maximum, "min": minimum, "decimals": 0})
     for i in range(1000):
         value = strategy.obfuscate('Any_percentage')
-        print(value)
         assert is_percentage(value)
         assert minimum <= int(value) <= maximum
 

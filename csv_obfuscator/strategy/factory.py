@@ -1,6 +1,7 @@
 from .md5 import MD5
 from .names import FirstName
 from .names import LastName
+from .names import FullName
 from .social_security import SSN
 from .phone_number import PhoneNumber
 from .float import PyFloat
@@ -67,6 +68,7 @@ __STRATEGIES__ = {
     'md5': MD5,
     'first_name': FirstName,
     'last_name': LastName,
+    'full_name': FullName,
     'social_security': SSN,
     'phone_number': PhoneNumber,
     'integer': Integer,
