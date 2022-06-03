@@ -21,7 +21,7 @@ class Integer:
 
     def obfuscate(self, value):
         Faker.seed(value + str(time.time_ns()))
-        return self._fake.pyint(max_value=self._max_value, min_value=self._min_value,)
+        return self._fake.pyint(max_value=self._max_value, min_value=self._min_value)
 
     @classmethod
     def configuration(cls):

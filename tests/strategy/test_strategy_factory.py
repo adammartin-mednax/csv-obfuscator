@@ -7,6 +7,7 @@ from csv_obfuscator.strategy.float import PyFloat
 from csv_obfuscator.strategy.email import EMail
 from csv_obfuscator.strategy.integer import Integer
 from csv_obfuscator.strategy.percentage import Percentage
+from csv_obfuscator.strategy.date import PyDate
 from csv_obfuscator.strategy import factory
 
 
@@ -59,6 +60,7 @@ def test_factory_will_return_configured_strategies():
                                           .with_column_to_obfuscate('8', {'strategy': 'integer', 'min': 1, 'max': 10})
                                           .with_column_to_obfuscate('9', {'strategy': 'percentage', 'min': 1, 'max': 10, 'decimals': 2})
                                           .with_column_to_obfuscate('10', {'strategy': 'full_name'})
+                                          .with_column_to_obfuscate('11', {'strategy': 'date', 'format': '%m/%d/%Y', 'direction': 'add', 'max': 100})
                                           .config())
     assert type(result[1]) == MD5
     assert type(result[2]) == FirstName
@@ -70,6 +72,7 @@ def test_factory_will_return_configured_strategies():
     assert type(result[8]) == Integer
     assert type(result[9]) == Percentage
     assert type(result[10]) == FullName
+    assert type(result[11]) == PyDate
 
 
 @patch('csv_obfuscator.strategy.factory.__STRATEGIES__')
