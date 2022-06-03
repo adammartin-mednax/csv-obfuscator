@@ -7,6 +7,7 @@ from .phone_number import PhoneNumber
 from .float import PyFloat
 from .integer import Integer
 from .percentage import Percentage
+from .date import PyDate
 from .email import EMail
 
 
@@ -74,7 +75,8 @@ __STRATEGIES__ = {
     'integer': Integer,
     'float': PyFloat,
     'percentage': Percentage,
-    'email': EMail
+    'email': EMail,
+    'date': PyDate
 }
 
 
