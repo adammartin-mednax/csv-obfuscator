@@ -29,8 +29,10 @@ class PyDate:
         self._fake = Faker()
 
     def obfuscate(self, value):
-        result = self._new_date(value)
-        return datetime.datetime.strftime(result, self._format)
+        if value and not value.isspace():
+            result = self._new_date(value)
+            return datetime.datetime.strftime(result, self._format)
+        return value
 
     def _new_date(self, value):
         Faker.seed(value + str(time.time_ns()))
