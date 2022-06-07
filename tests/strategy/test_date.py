@@ -57,5 +57,20 @@ def test_will_return_a_random_date_in_expected_range_for_subtract():
         assert new_datetime >= date_time - datetime.timedelta(days=max_value)
 
 
+def test_will_return_empty_string_for_empty_string():
+    strategy = PyDate({'strategy': 'date', 'format': '%m/%d/%Y', 'direction': 'subtract', 'max': 10})
+    assert strategy.obfuscate('') == ''
+
+
+def test_will_return_empty_string_for_nil_string():
+    strategy = PyDate({'strategy': 'date', 'format': '%m/%d/%Y', 'direction': 'subtract', 'max': 10})
+    assert strategy.obfuscate(None) == None
+
+
+def test_will_return_empty_string_for_blank_string():
+    strategy = PyDate({'strategy': 'date', 'format': '%m/%d/%Y', 'direction': 'subtract', 'max': 10})
+    assert strategy.obfuscate('     ') == '     '
+
+
 def test_will_explain_date_configuration():
     assert PyDate.configuration() == EXPECTED_CONFIGURATION
