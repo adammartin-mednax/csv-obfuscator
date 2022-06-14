@@ -2,6 +2,7 @@ import csv
 import json
 from json.decoder import JSONDecodeError
 from .strategy import factory
+from .utility import new_value
 
 
 __version__ = '0.1.0'
@@ -31,11 +32,5 @@ def process(config, input_stream, output_stream):
 
 def obfuscate(csv_input_stream, csv_output_stream, strategies):
     for row in csv_input_stream:
-        new_row = [_new_value(value, index, strategies) for index, value in enumerate(row)]
+        new_row = [new_value(value, index, strategies) for index, value in enumerate(row)]
         csv_output_stream.writerow(new_row)
-
-
-def _new_value(value, index, strategies):
-    if index in strategies:
-        return strategies[index].obfuscate(value)
-    return value
