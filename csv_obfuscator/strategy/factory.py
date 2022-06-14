@@ -9,6 +9,7 @@ from .integer import Integer
 from .percentage import Percentage
 from .date import PyDate
 from .email import EMail
+from .combination import Combination
 
 
 __CONFIGURATION_BASE_MESSAGE__ = """CSV-OBFUSCATOR and CONFIG.JSON
@@ -76,7 +77,8 @@ __STRATEGIES__ = {
     'float': PyFloat,
     'percentage': Percentage,
     'email': EMail,
-    'date': PyDate
+    'date': PyDate,
+    'combination': Combination
 }
 
 
