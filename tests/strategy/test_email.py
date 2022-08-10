@@ -8,6 +8,12 @@ EXPECTED_CONFIGURATION = """    - email: This strategy is intended to obfuscate 
 """
 
 
+def test_will_return_a_different_email():
+    original_email='Any_e_mail'
+    strategy = EMail({'strategy': 'email'})
+    assert strategy.obfuscate(original_email) != original_email
+
+
 def test_will_return_a_random_email():
     strategy = EMail({'strategy': 'email'})
     result = strategy.obfuscate('Any_e_mail')
