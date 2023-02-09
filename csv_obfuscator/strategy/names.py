@@ -158,7 +158,7 @@ class FirstName:
     def __init__(self, arguments):
         self._strategy_type = arguments['strategy']
 
-    # pylint: disable=unused-argument, no-self-use
+    # pylint: disable=unused-argument
     def obfuscate(self, value):
         return random.choice(__FIRST_NAMES__)
 
@@ -171,7 +171,7 @@ class LastName:
     def __init__(self, arguments):
         self._strategy_type = arguments['strategy']
 
-    # pylint: disable=unused-argument, no-self-use
+    # pylint: disable=unused-argument
     def obfuscate(self, value):
         return random.choice(__LAST_NAMES__)
 
@@ -186,7 +186,7 @@ class FullName:
         self._first_name = FirstName(arguments)
         self._last_name = LastName(arguments)
 
-    # pylint: disable=unused-argument, no-self-use
+    # pylint: disable=unused-argument
     def obfuscate(self, value):
         return f'{self._first_name.obfuscate(value)} {self._last_name.obfuscate(value)}'
 
