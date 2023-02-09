@@ -47,6 +47,13 @@ __CONFIGURATION_BASE_MESSAGE__ = """CSV-OBFUSCATOR and CONFIG.JSON
               \"0\": {\"strategy\": \"social_security\"}
             }
 
+        - has_header: OPTIONAL, This value is optional and is always true by
+            by default.  Setting this to false will allow the obfuscator to
+            know there is no header row.  This is a json boolean value.  It's
+            setting would look like:
+
+            \"has_header\": false
+
     A full `config.json` file might look something like this:
 
         {

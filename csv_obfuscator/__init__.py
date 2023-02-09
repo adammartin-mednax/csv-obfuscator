@@ -26,7 +26,8 @@ def load_config():
 def process(config, input_stream, output_stream):
     csv_reader = csv.reader(input_stream, delimiter=config['delimiter'])
     csv_writer = csv.writer(output_stream, delimiter=config['delimiter'])
-    csv_writer.writerow(next(csv_reader))
+    if config.get('has_header', True):
+        csv_writer.writerow(next(csv_reader))
     obfuscate(csv_reader, csv_writer, factory.build(config))
 
 

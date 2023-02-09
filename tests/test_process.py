@@ -28,6 +28,10 @@ class ConfigBuilder():
         self._columns_to_obfuscate[column] = strategy
         return self
 
+    def with_optional_has_header(self, has_header):
+        self._has_header = has_header
+        return self
+
     def config(self):
         config = {
             'input_file': self._input_file,
@@ -35,6 +39,8 @@ class ConfigBuilder():
             'delimiter': self._delimiter,
             'columns_to_obfuscate': self._columns_to_obfuscate
         }
+        if hasattr(self, '_has_header'):
+            config['has_header'] = self._has_header
         return config
 
 
@@ -77,6 +83,17 @@ def test_process_will_write_header_line(mock_obfuscate):
     output_stream = StringIO()
     process(ConfigBuilder().config(), input_stream, output_stream)
     assert output_stream.getvalue() == (header +'\r\n')
+
+
+@patch('csv_obfuscator.obfuscate')
+def test_process_will_can_be_configured_to_not_have_header_line(mock_obfuscate):
+    header = 'f_name, l_name'
+    line1 = 'john, jones'
+    input_stream = StringIO('\n'.join([header, line1]))
+    output_stream = StringIO()
+    print(ConfigBuilder().with_optional_has_header(False).config())
+    process(ConfigBuilder().with_optional_has_header(False).config(), input_stream, output_stream)
+    assert output_stream.getvalue() == ''
 
 
 @patch('csv_obfuscator.obfuscate')
